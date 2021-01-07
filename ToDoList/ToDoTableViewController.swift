@@ -79,17 +79,32 @@ class ToDoTableViewController: UITableViewController {
     */
     
     @IBAction func unwindToDoList(segue: UIStoryboardSegue) {
+        guard segue.identifier == "saveUnwind" else { return }
+        let sourceViewController = segue.source as? ToDoDetailTableViewController
         
+        if let todo = sourceViewController?.todo {
+            let newIndexPath = IndexPath(row: todos.count, section: 0)
+            
+            todos.append(todo)
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
+        }
     }
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBSegueAction func editToDo(_ coder: NSCoder, sender: Any?) -> ToDoDetailTableViewController? {
+        guard let cell = sender as? UITableViewCell,
+              let indexPath = tableView.indexPath(for: cell) else { return nil }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let detailController = ToDoDetailTableViewController(coder: coder)
+        detailController?.todo = todos[indexPath.row]
+        
+        return detailController
     }
-    */
+    
+    
 
 }

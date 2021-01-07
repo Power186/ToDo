@@ -15,6 +15,13 @@ struct ToDo: Equatable {
     var dueDate: Date
     var notes: String?
     
+    static let dueDateFormatter: DateFormatter = {
+       let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        return formatter
+    }()
+    
     static func ==(lhs: ToDo, rhs: ToDo) -> Bool {
         return lhs.id == rhs.id
     }
@@ -30,4 +37,5 @@ struct ToDo: Equatable {
         
         return [todo1, todo2, todo3]
     }
+    
 }
