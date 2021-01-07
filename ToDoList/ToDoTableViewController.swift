@@ -7,17 +7,14 @@
 
 import UIKit
 
-class ToDoTableViewController: UITableViewController {
+class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
     
     var todos = [ToDo]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        self.navigationItem.leftBarButtonItem = self.editButtonItem
+        navigationItem.leftBarButtonItem = editButtonItem
         
         if let savedToDos = ToDo.loadToDos() {
             todos = savedToDos
@@ -29,17 +26,16 @@ class ToDoTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return todos.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoCell", for: indexPath)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoCell", for: indexPath) as! ToDoCell
         let todo = todos[indexPath.row]
-        cell.textLabel?.text = todo.title
 
+        cell.delegate = self
+        cell.update(with: todo)
         return cell
     }
     
@@ -79,14 +75,27 @@ class ToDoTableViewController: UITableViewController {
     */
     
     @IBAction func unwindToDoList(segue: UIStoryboardSegue) {
-        guard segue.identifier == "saveUnwind" else { return }
-        let sourceViewController = segue.source as? ToDoDetailTableViewController
+        guard segue.identifier == "saveUnwind",
+              let sourceViewController = segue.source as? ToDoDetailTableViewController,
+              let todo = sourceViewController.todo else { return }
         
-        if let todo = sourceViewController?.todo {
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            todos[selectedIndexPath.row] = todo
+            tableView.reloadRows(at: [selectedIndexPath], with: .none)
+        } else {
             let newIndexPath = IndexPath(row: todos.count, section: 0)
-            
             todos.append(todo)
             tableView.insertRows(at: [newIndexPath], with: .automatic)
+        }
+    }
+    
+    func checkmarkTapped(sender: ToDoCell) {
+        
+        if let indexPath = tableView.indexPath(for: sender) {
+            var todo = todos[indexPath.row]
+            todo.isComplete.toggle()
+            todos[indexPath.row] = todo
+            tableView.reloadRows(at: [indexPath], with: .automatic)
         }
     }
 
@@ -94,17 +103,15 @@ class ToDoTableViewController: UITableViewController {
     // MARK: - Navigation
 
     @IBSegueAction func editToDo(_ coder: NSCoder, sender: Any?) -> ToDoDetailTableViewController? {
-        guard let cell = sender as? UITableViewCell,
-              let indexPath = tableView.indexPath(for: cell) else { return nil }
-        
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        let detailController = ToDoDetailTableViewController(coder: coder)
-        detailController?.todo = todos[indexPath.row]
-        
-        return detailController
+        if let cell = sender as? UITableViewCell,
+           let indexPath = tableView.indexPath(for: cell) {
+            
+            let toDoToEdit = todos[indexPath.row]
+            return ToDoDetailTableViewController(coder: coder, todo: toDoToEdit)
+        } else {
+            return ToDoDetailTableViewController(coder: coder, todo: nil)
+        }
     }
-    
     
 
 }
