@@ -7,10 +7,10 @@
 
 import UIKit
 
-struct ToDo: Equatable {
-    let id = UUID()
+struct ToDo: Equatable, Codable {
+    var id = UUID()
     var title: String
-    var image: UIImage?
+    var image: Data?
     var isComplete: Bool
     var dueDate: Date
     var notes: String?
@@ -26,8 +26,22 @@ struct ToDo: Equatable {
         return lhs.id == rhs.id
     }
     
+    static let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    
+    static let archiveURL = documentsDirectory.appendingPathComponent("todos")
+        .appendingPathExtension("plist")
+    
     static func loadToDos() -> [ToDo]? {
-        return nil
+        guard let codedToDos = try? Data(contentsOf: archiveURL) else { return nil }
+        
+        let propertyListDecoder = PropertyListDecoder()
+        return try? propertyListDecoder.decode(Array<ToDo>.self, from: codedToDos)
+    }
+    
+    static func saveToDos(_ todos: [ToDo]) {
+        let propertyListEncoder = PropertyListEncoder()
+        let codedToDos = try? propertyListEncoder.encode(todos)
+        try? codedToDos?.write(to: archiveURL, options: .noFileProtection)
     }
     
     static func loadSampleToDos() -> [ToDo] {
@@ -39,3 +53,5 @@ struct ToDo: Equatable {
     }
     
 }
+
+
