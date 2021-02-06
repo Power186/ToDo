@@ -10,7 +10,6 @@ import UIKit
 struct ToDo: Equatable, Codable {
     var id = UUID()
     var title: String
-    var image: Data?
     var isComplete: Bool
     var dueDate: Date
     var notes: String?
@@ -45,9 +44,9 @@ struct ToDo: Equatable, Codable {
     }
     
     static func loadSampleToDos() -> [ToDo] {
-        let todo1 = ToDo(title: "ToDo 1", image: nil, isComplete: false, dueDate: Date(), notes: "Notes 1")
-        let todo2 = ToDo(title: "ToDo 2", image: nil, isComplete: true, dueDate: Date(), notes: "Notes 2")
-        let todo3 = ToDo(title: "ToDo 3", image: nil, isComplete: false, dueDate: Date(), notes: "Notes 3")
+        let todo1 = ToDo(title: "ToDo 1", isComplete: false, dueDate: Date(), notes: "Notes 1")
+        let todo2 = ToDo(title: "ToDo 2", isComplete: true, dueDate: Date(), notes: "Notes 2")
+        let todo3 = ToDo(title: "ToDo 3", isComplete: false, dueDate: Date(), notes: "Notes 3")
         
         return [todo1, todo2, todo3]
     }
