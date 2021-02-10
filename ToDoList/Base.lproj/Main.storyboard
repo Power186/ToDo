@@ -51,7 +51,7 @@
                                         <constraint firstItem="G8D-J5-LPp" firstAttribute="centerY" secondItem="TbT-At-rHN" secondAttribute="centerY" id="Y0o-e8-cXt"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="isCompleteButton" destination="G8D-J5-LPp" id="0d4-Ud-KXQ"/>
                                     <outlet property="titleLabel" destination="tUf-Bg-Xw6" id="j6e-yN-ZLs"/>
