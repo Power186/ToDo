@@ -16,14 +16,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ToDoCell" id="kea-tM-8Wx" customClass="ToDoCell" customModule="ToDoList" customModuleProvider="target">
-                                <rect key="frame" x="20" y="55.5" width="374" height="43"/>
+                                <rect key="frame" x="20" y="55.5" width="374" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kea-tM-8Wx" id="TbT-At-rHN">
-                                    <rect key="frame" x="0.0" y="0.0" width="343" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G8D-J5-LPp">
-                                            <rect key="frame" x="8" y="8" width="28" height="27"/>
+                                            <rect key="frame" x="8" y="8.5" width="28" height="27"/>
                                             <state key="normal" image="circle" catalog="system">
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24"/>
                                             </state>
@@ -35,10 +35,10 @@
                                                 <action selector="isCompleteButtonTapped:" destination="dET-CU-DZE" eventType="touchUpInside" id="dqt-Vf-3P6"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tUf-Bg-Xw6">
-                                            <rect key="frame" x="44" y="11" width="275" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tUf-Bg-Xw6">
+                                            <rect key="frame" x="44" y="11" width="275" height="21.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" systemColor="systemTealColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -51,7 +51,6 @@
                                         <constraint firstItem="G8D-J5-LPp" firstAttribute="centerY" secondItem="TbT-At-rHN" secondAttribute="centerY" id="Y0o-e8-cXt"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="isCompleteButton" destination="G8D-J5-LPp" id="0d4-Ud-KXQ"/>
                                     <outlet property="titleLabel" destination="tUf-Bg-Xw6" id="j6e-yN-ZLs"/>
@@ -288,6 +287,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
